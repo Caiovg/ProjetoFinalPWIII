@@ -10,21 +10,6 @@
     <title>Home</title>
 </head>
 <body>
-    <!--<nav class="navbar navbar bg cor">
-        <span class="navbar-brand mb-0 h1 logo"><a href="<?php echo base_url("index.php/Welcome/index"); ?>"><img src="<?php echo base_url("assets/imagens/logo_40px.png")?>"></a></span>
-        
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Início</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="<?php echo base_url("index.php/Welcome/telaLogin"); ?>">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="<?php echo base_url("index.php/Welcome/telaLogin"); ?>">Recados</a>
-            </li>
-        </ul>
-    </nav>-->
     <nav>
         <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
@@ -32,10 +17,10 @@
         </label>
         <label class="logo">Controller</label>
         <ul>
-            <li><a class="active" href="#">Home</a></li>
-            <li><a href="#">About</a></li>
+            <li><a class="active" href="<?php echo base_url("index.php/Welcome/index"); ?>">Home</a></li>
+            <li><a href="<?php echo base_url("index.php/Welcome/telaClientes"); ?>">Clientes</a></li>
             <li><a href="<?php echo base_url("index.php/Welcome/telaProdutos"); ?>">Produtos</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="<?php echo base_url("index.php/Welcome/telaVendas"); ?>">Vendas</a></li>
             <li><a href="#">Feedback</a></li>
         </ul>
     </nav>

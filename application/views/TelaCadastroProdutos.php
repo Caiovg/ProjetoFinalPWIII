@@ -14,6 +14,9 @@
         $(document).ready(function() {
             $('#preco').mask('#.##0,00', {reverse: true})
         });
+        $(document).ready(function() {
+            $('#PRECO').mask('#.##0,00', {reverse: true})
+        });
     </script>
 </head>
 <body>
@@ -25,21 +28,21 @@
         <label class="logo">Controller</label>
         <ul>
             <li><a href="<?php echo base_url("index.php/Welcome/index"); ?>">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a class="active" href="#">Produtos</a></li>
-            <li><a href="#">Vendas</a></li>
-            <li><a href="#">Feedback</a></li>
+            <li><a href="<?php echo base_url("index.php/Welcome/telaClientes"); ?>">Clientes</a></li>
+            <li><a class="active" href="<?php echo base_url("index.php/Welcome/telaProdutos"); ?>">Produtos</a></li>
+            <li><a href="<?php echo base_url("index.php/Welcome/telaVendas"); ?>">Vendas</a></li>
+            <li><a href="<?php echo base_url("index.php/Welcome/telaRelatorios"); ?>">Relatorios</a></li>
         </ul>
     </nav>
     <br><br><br><br>
     <div class="container">
-    <br><br><br>
+    <br>
         <div class="caixaCadastro d-none d-md-block">
             <br>
             <h2 class="text-center titulo font-weight-bold">Cadastrar Item</h2>
             <br>
             <div class="col-lg-9 text-center mr-auto ml-auto font-weight-bold">
-                <form action="<?php echo base_url("index.php/Produtos/validarCadastroProdutos");?>" method="POST" id="Cadastro" enctype="multipart/form-data">
+                <form action="<?php echo base_url("index.php/Produtos/validarCadastroProdutos");?>" method="POST" id="CadastroProduto" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="bold" for="nomeItem">Nome do Item</label>
                         <input type="text" class="form-control" autocomplete="off" id="nomeProduto" name="nomeProduto">
@@ -79,10 +82,10 @@
         <div class="d-md-none d-sm-block">
             <div class="caixaCadastroP mt-4 font-weight-bold">
                 <h2 class="text-center titulo">Cadastro</h2>
-                <form class="form-row mt-2" action="<?php echo base_url("index.php/CadastroFuncionario/validarCadastroFuncionarioresponsivo"); ?>" method="POST" id="cadastroFuncionarioresponsivo">
+                <form class="form-row mt-2" action="<?php echo base_url("index.php/Produtos/validarCadastroProdutosresponsivo"); ?>" method="POST" id="CadastroProdutosresponsivo">
                     <div class="form-group mx-auto col-12">
-                        <label class="bold" for="nomeItem">Nome do Item</label>
-                        <input type="text" class="form-control" autocomplete="off" id="nomeItem" name="nomeItem">
+                        <label class="bold" for="nomeProduto">Nome do Item</label>
+                        <input type="text" class="form-control" autocomplete="off" id="nomeProduto" name="nomeProduto">
                     </div>
                     <div class="form-group mx-auto col-12">
                         <label class="bold" for="descricao">Descrição</label>
@@ -90,12 +93,13 @@
                     </div>
                     <div class="form-group mx-auto col-12">
                         <label for="preco">Preço</label>
-                        <input type="text" class="form-control" id="preco" name="preco">
+                        <input type="text" class="form-control" id="PRECO" name="PRECO">
                     </div>
                     <div class="form-group mx-auto col-12">
-                        <label for="preco">Quantidade</label>
-                        <input type="text" class="form-control" id="preco" name="preco">
+                        <label for="quantidade">Quantidade</label>
+                        <input type="text" class="form-control" id="quantidade" name="quantidade">
                     </div>
+                    <input type="hidden" class="form-control" id="Id" name="id" value="id">
                     <div class="form-group col-12">
                         <label for="addFoto">Adicionar foto</label>
                         <input type="file" class="form-control" id="addFoto" name="addFoto">
@@ -109,6 +113,8 @@
 
     <script src="<?php echo base_url('assets/node_modules/jquery/dist/jquery.js'); ?>"></script>
     <script src="<?php echo base_url('assets/node_modules/popper.js/dist/umd/popper.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url("assets/node_modules/jquery/dist/jquery.mask.min.js"); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("assets/node_modules/jquery/dist/jquery.mask.min.js"); ?>"></script>  
+    <!--<script type="text/javascript" src="<?php echo base_url('assets/javascript/validar.js'); ?>"></script>-->
+    <script src="<?php echo base_url('assets/node_modules/sweetalert2/dist/sweetalert2.all.js'); ?>"></script>
 </body>
 </html>

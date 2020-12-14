@@ -46,3 +46,13 @@ label{
 }
 
 /*ajuste da tela de funcionarios*/
+
+.imagensmodal{
+    border-width: medium;
+    border-style: groove;
+    border-color: black;
+}
+.img{
+
+    align-content: center;
+}
