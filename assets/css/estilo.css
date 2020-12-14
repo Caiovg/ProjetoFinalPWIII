@@ -123,6 +123,9 @@ section{
     height: calc(100vh - 80px);
 }
 */
+.cortable{
+    background: white;
+}
 .cor{
     background: white;
     height: 110px;

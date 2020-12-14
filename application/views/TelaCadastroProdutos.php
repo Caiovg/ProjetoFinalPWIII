@@ -27,7 +27,6 @@
         </label>
         <label class="logo">Controller</label>
         <ul>
-            <li><a href="<?php echo base_url("index.php/Welcome/index"); ?>">Home</a></li>
             <li><a href="<?php echo base_url("index.php/Welcome/telaClientes"); ?>">Clientes</a></li>
             <li><a class="active" href="<?php echo base_url("index.php/Welcome/telaProdutos"); ?>">Produtos</a></li>
             <li><a href="<?php echo base_url("index.php/Welcome/telaVendas"); ?>">Vendas</a></li>

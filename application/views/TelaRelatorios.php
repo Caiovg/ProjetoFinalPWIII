@@ -20,7 +20,6 @@
         </label>
         <label class="logo">Controller</label>
         <ul>
-            <li><a href="<?php echo base_url("index.php/Welcome/index"); ?>">Home</a></li>
             <li><a href="<?php echo base_url("index.php/Welcome/telaClientes"); ?>">Clientes</a></li>
             <li><a href="<?php echo base_url("index.php/Welcome/telaProdutos"); ?>">Produtos</a></li>
             <li><a href="<?php echo base_url("index.php/Welcome/telaVendas"); ?>">Vendas</a></li>
@@ -35,22 +34,17 @@
 
     <div class="container-fluid mt-4">
         <br>
-        <div class="col-md-7">
-            <form class="input-group" action="<?php echo base_url("index.php/Welcome/pesquisarProdutos")?>" method="post">
-                <input name="pesquisar" class="form-control" id="pesquisar" type="text" placeholder="Pesquisar Produtos">      
-                <button class="btn btn-primary" type="submit" style="position: relative; left: 8px;">Pesquisar</button>
-            </form>
-        </div>
-        <br>
-        <table class="table table-dark table-hover text-center">
+        <table class="table cortable table-hover text-center">
             <thead>
                 <tr class="text-danger">
-                    <th scope="col">Foto</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Preço</th>
-                    <th scope="col">Editar Item</th>
-                    <th scope="col">Excluir</th>
+                    <th scope="col">ID Venda</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">ID Cliente</th>
+                    <th scope="col">Nome Cliente</th>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Preço Unitario</th>
+                    <th scope="col">Preço Final</th>
                 </tr>
             </thead>
             <div>
@@ -61,7 +55,6 @@
                             <th scope="col"><?php echo $vendas['data_venda'] ?></th>
                             <th scope="col"><?php echo $vendas['cod_cliente'] ?></th>
                             <th scope="col"><?php echo $vendas['nome_cliente'] ?></th>
-                            <th scope="col"><?php echo $vendas['cod_Produto'] ?></th>
                             <th scope="col"><?php echo $vendas['nome_Produto'] ?></th>
                             <th scope="col"><?php echo $vendas['quantidade'] ?></th>
                             <th scope="col"><?php echo $vendas['preco_unitario'] ?></th>
