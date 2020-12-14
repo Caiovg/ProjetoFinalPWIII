@@ -1,0 +1,184 @@
+-- CRIANDO O BANCO DE DADOS
+DROP DATABASE IF EXISTS camelo;
+CREATE DATABASE IF NOT EXISTS camelo
+default character set utf8
+default collate utf8_general_ci;
+
+use camelo; 
+
+create table Clientes(
+cod_cliente INT unsigned not null auto_increment primary key,
+nome_cliente VARCHAR(100) NOT NULL,
+email_cliente VARCHAR(100) unique NOT NULL,
+cpf_cliente varchar(14) unique not null,
+telefone_cliente varchar(16) unique not null,
+ativo tinyint(1) default 1 not null
+);
+
+create table Produto(
+cod_Produto INT unsigned not null auto_increment primary key,
+nome_Produto VARCHAR(100),
+descricao_Produto TEXT NOT NULL,
+preco_Produto DECIMAL(10,2) NOT NULL,
+ativo tinyint(1) default 1 not null
+);
+
+CREATE TABLE Imagens(
+cod_Produto INT unsigned NOT NULL,
+foto_Produto varchar(100)
+);
+
+create table Estoque(
+cod_Produto INT unsigned not null,
+quantidade int not null
+);
+
+create table Vendas(
+cod_Venda INT unsigned not null auto_increment primary key,
+data_venda timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+cod_cliente INT unsigned
+);
+ 
+/*tabela ItemPedido*/
+create table ItensVendidos(
+cod_Venda INT unsigned not null,
+cod_Produto INT unsigned not null,
+quantidade INT(100) not null,
+preco_unitario DECIMAL(10,2) NOT NULL,
+preco_final DECIMAL(10,2) NOT NULL
+);
+
+ALTER TABLE Estoque ADD CONSTRAINT FK_cod_Produto
+FOREIGN KEY (cod_Produto)
+REFERENCES Produto (cod_Produto)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE Imagens ADD CONSTRAINT FK_cod_Imagens
+FOREIGN KEY (cod_Produto)
+REFERENCES Produto (cod_Produto)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE ItensVendidos ADD CONSTRAINT FK_cod_Produto2
+FOREIGN KEY (cod_Produto)
+REFERENCES Produto (cod_Produto);
+
+ALTER TABLE ItensVendidos ADD CONSTRAINT FK_cod_Venda
+FOREIGN KEY (cod_Venda)
+REFERENCES Vendas (cod_Venda);
+
+-- Inserts
+
+insert into Clientes(nome_cliente, email_cliente, cpf_cliente, telefone_cliente)values
+("Cliente não cadastrado","0","000.000.000-00","(00) 00000-0000"),
+("Arthur Daniel Nelson Duarte","arthurdaniel@gmail.com","575.835.918-13","(11) 99608-2909"),
+("Luís Luiz Marcos Duarte","luisluizmarcosduarte@gmail.com","888.638.568-42","(11) 99149-4642"),
+("Paulo Matheus Cavalcanti","ppaulomatheuscavalcanti@gmail.com.br","923.827.768-03","(11) 99226-2453"),
+("Bernardo Ryan da Mota","bernardoryandamota@gmail.adv.br","443.166.888-80","(11) 99941-4756"),
+("Jéssica Luciana Betina Alves","jessicaluciana@gmail.com","722.209.238-27","(11) 99568-3631"),
+("Clara Luzia Adriana Fernandes","cclaraluziaadriana@gmail.com","477.307.948-70","(11) 98869-2957");
+update Clientes SET ativo = 0 where cod_cliente = '1';
+
+insert into produto(nome_produto, descricao_Produto, preco_Produto)values
+('Teclado Gamer HyperX Alloy Core, RGB, ABNT2','O teclado gamer HyperX Alloy Core é moderno e com tecnologias de última geração.','50.00'),
+('Mouse Gamer Redragon 7200DPI, RGB, Griffin','- Sensor PIXART PMW3325 para Alta Performance (10000 DPI/20G/100ips) (óptico)','60.00'),
+('Monitor LG LED 19.5´, HDMI/VGA, 2ms, Ajuste de Inclinação','- Tamanho 19,5"
+- Tipo de Tela: LED TN
+- Resolução Máxima: 1366 x 768','460.00'),
+('Caixa de Som JBL Boombox - Preto','Feita para ser a mais potente caixa de som portátil com Bluetooth, 
+JBL Boombox oferece um som poderoso juntamente com impressionante reprodução de graves.','40.00'),
+('Cadeira Gamer reclinável Strike com 2 almofadas Travel Max Verde/Preto','Mesa Gamer com frufru ','1560.00'),
+('Placa de Video GTX 1050 ','A Cerberus GeForce® GTX 
+1050 Ti é projetada com um backplate robusto para proteger os componentes e circuitos 
+da placa de vídeo.','999.90');
+
+insert into estoque(cod_Produto, quantidade)values
+(1,121),
+(2,150),
+(3,60),
+(4,45),
+(5,200),
+(6,81);
+
+insert into Imagens(cod_Produto, foto_Produto)values
+(1,'17a49615c668885ef36416bc22a99866.jpg'),
+(2,'0b6c9129d906fc519a9fe315f2ee541c.jpg'),
+(3,'2398a2ad133dbdec8d7539bf01c26fe7.jpg'),
+(4,'f9fb9bf77fd22a62982672aa1a9b4827.jpg'),
+(5,'1b3b31709e2123ba1439844f9a4b6a4e.jpg'),
+(6,'9144f5422861e91226b7d756564045b9.jpg');
+
+ DELIMITER //
+ CREATE PROCEDURE SP_CadastrarProdutos(
+	IN nome VARCHAR(100),
+	IN descricao TEXT,
+    IN preco DECIMAL(10,2),
+    IN foto VARCHAR(100),
+    IN quatidade INT,
+    IN codigo INT
+)
+ BEGIN
+	INSERT INTO Produto(nome_Produto, descricao_Produto, preco_Produto)
+    VALUES (nome, descricao, preco);
+    SELECT codigo = @@IDENTITY; 
+    INSERT INTO Estoque(cod_Produto, quantidade)
+    VALUES (@@IDENTITY, quatidade);
+    INSERT INTO Imagens(cod_Produto, foto_Produto)
+    VALUES (@@IDENTITY, foto);
+END
+//
+
+CREATE PROCEDURE SP_UpdateProdutos
+(
+	IN codigo INT,
+	IN nome VARCHAR(100),
+	IN descricao TEXT,
+    IN preco DECIMAL(10,2),
+    IN quantidade INT
+)
+ BEGIN
+	UPDATE Produto
+		SET 
+			nome_Produto = nome,
+			descricao_Produto = descricao,
+			preco_Produto = preco
+		WHERE cod_Produto = codigo;
+	UPDATE Estoque
+		SET
+			quantidade = quantidade
+		WHERE cod_produto = codigo;
+END
+//
+
+//
+CREATE PROCEDURE SP_DeleteProdutos
+(
+	IN codigo INT
+)
+ BEGIN
+	DELETE FROM Produto
+    WHERE cod_Produto = codigo;
+ END
+ //
+
+ DELIMITER //
+ CREATE PROCEDURE SP_Vendas(
+	IN codigo_cliente INT,
+    IN codigo INT,
+    IN codigo_Produto INT,
+    IN quantidade_produto INT(100),
+    IN pre_unitario DECIMAL(10,2),
+    IN pre_final DECIMAL(10,2)
+)
+ BEGIN
+	INSERT INTO Vendas(cod_cliente)
+    VALUES (codigo_cliente);
+    SELECT codigo = @@IDENTITY; 
+    INSERT INTO ItensVendidos(cod_Venda, cod_Produto, quantidade, preco_unitario, preco_final)
+    VALUES (@@IDENTITY, codigo_Produto, quantidade_produto, pre_unitario, pre_final);
+    UPDATE estoque SET quantidade = quantidade-quantidade_produto where cod_Produto = codigo_Produto;
+END
+//
+CALL SP_Vendas(2,"@@IDENTITY",3, 2, 50, 100);
+//
